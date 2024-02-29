@@ -2,4 +2,5 @@
     width: 300px;
     border: solid #9B1B01 3px;
     border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
