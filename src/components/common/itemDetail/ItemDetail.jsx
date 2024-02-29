@@ -1,9 +1,10 @@
-import { ItemCount } from "./ItemCount"
+import { ItemCount } from "../ItemCount"
+import style from "./ItemDetail.module.css"
 
 export const ItemDetail = ({imageUrl, title, price, description, stock}) => {
   return (
     <div>
-      <img src={imageUrl} alt={title} />
+      <img className={style.imgItem} src={imageUrl} alt={title} />
       <h3>{title}</h3>
       <h3>{price}</h3>
       <h3>{description}</h3>
