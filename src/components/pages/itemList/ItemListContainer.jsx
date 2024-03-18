@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
-import { ItemList } from "../common";
-import { getProducts } from "../../productsMock";
+import { ItemList } from "../../common";
+import { getProducts } from "../../../productsMock";
 import { useParams } from "react-router-dom";
 
 export const ItemListContainer = () => {

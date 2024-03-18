@@ -1,6 +1,6 @@
 import style from "./Navbar.module.css"
 import { CartWidget } from "../../common/CartWidget"
-import { Link } from "react-router-dom"
+import { Link, Outlet } from "react-router-dom"
 export const Navbar = () => {
   return (
     <div>
@@ -21,7 +21,7 @@ export const Navbar = () => {
           <button>Universitario</button>
         </Link>
       </ul>
-      <Link to="/cart"> <CartWidget /> </Link>
+      <Link to="/cart"><CartWidget /></Link>
     </div>
   )
 }

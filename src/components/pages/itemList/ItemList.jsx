@@ -1,4 +1,4 @@
-import { Item } from "../item/Item"
+import { Item } from "../../common/item/Item"
 import styles from "./ItemList.module.css"
 
 export const ItemList = ({products}) => {

@@ -1,0 +1,33 @@
+.backgroundDiv {
+    border: solid rgb(215, 116, 18) 4px;
+    border-radius: 10px;
+    background-color: rgb(133, 23, 3);
+    width: 70%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.gridDiv {
+    display: grid;
+}
+.backgroundDiv div {
+    border-radius: 4px;
+    text-align: center;
+    font-style: italic;
+    font-weight: 600;
+    margin: 8% 10% 25px 10%;
+    padding: 5px;
+    background-color: rgb(224, 110, 4);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.backgroundDiv button {
+    border-radius: 4px;
+    background-color: rgb(224, 110, 4);
+    font-weight: 600;
+    border: 1px solid rgb(255, 185, 111);
+    padding: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
