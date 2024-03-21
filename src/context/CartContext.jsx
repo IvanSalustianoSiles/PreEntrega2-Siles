@@ -10,7 +10,7 @@ const CartContextProvider = ({children}) => {
         if (productExists) {
             let fixedCart = cart.map((product) => {
                 if (product.id === newProduct.id) {
-                    return {...product, quantity: product.quantity + newProduct.quantity}
+                    return {...product, quantity: newProduct.quantity}
                 } else {
                     return product;
                 }
@@ -59,7 +59,11 @@ const CartContextProvider = ({children}) => {
         let productPrice = valuedProduct.quantity * valuedProduct.price;
         return productPrice;
     }
-    return <CartContext.Provider value={{cart, addToCart, clearCart, removeById, settingQuantity, getTotalProducts, getTotalPrice, getProductPrice}}>
+    const getQuantityById = (id, count) => {
+        let product = cart.find(product => product.id === id);
+        return product && product.quantity;
+    }
+    return <CartContext.Provider value={{cart, addToCart, clearCart, removeById, settingQuantity, getTotalProducts, getTotalPrice, getProductPrice, getQuantityById}}>
         {children}
     </CartContext.Provider>
 }

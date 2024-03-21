@@ -1,24 +1,27 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react";
 import { ItemDetail } from "../../common";
-import { useNavigate, useParams } from "react-router-dom";
-import { getProduct } from "../../../productsMock";
+import { useParams } from "react-router-dom";
 import { CartContext } from "../../../context/CartContext";
-
+import { PropagateLoader } from "react-spinners";
+import { database } from "../../../firebaseConfig";
+import { collection, doc, getDoc } from "firebase/firestore";
+import style from "./ItemDetail.module.css";
 export const ItemDetailContainer = () => {
   const {id} = useParams();
   const [item, setItem] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const {addToCart} = useContext(CartContext);
+  const {addToCart, getQuantityById} = useContext(CartContext);
+  let varQuantity = getQuantityById(id);
   useEffect(() => {
-    getProduct(id)
-    .then((resp) => {
-      setItem(resp)
-      setIsLoading(false);
-    })
-    .catch((error) => {
-      setItem({...item, error: error});
-      setIsLoading(false);
-    })
+    let productsCollection = collection(database, "products");
+    let refDocument = doc(productsCollection, id);
+    getDoc(refDocument).then(resp => {
+      setItem({...resp.data(), id: resp.id});
+      if (resp.data() == null) {
+        let error = `No se ha encontrado el producto de id "${id}".`
+        setItem({error});
+      }
+    }).finally(() => setIsLoading(false));
   }, [])
   const onAdd = (quantity) => {
     const productInfo = {
@@ -29,7 +32,7 @@ export const ItemDetailContainer = () => {
   }
   return (
     <>
-      {isLoading ? <img src="../../../multimedia/favicon.png" alt="Cargando detalle..." /> : <ItemDetail {...item} onAdd={onAdd}/>}
+      {isLoading ? <div className={style.spinner}><PropagateLoader color="#9B1B01" size={30} speedMultiplier={1.2}/></div> : <ItemDetail {...item} varQuantity={varQuantity} onAdd={onAdd}/>}
     </>
   )
 }

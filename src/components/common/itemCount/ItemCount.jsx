@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const ItemCount = ({decrement, increment, count, onAdd, stock}) => {
+export const ItemCount = ({decrement, increment, count, stock, varQuantity, onAdd}) => {
 
   return (
     <div>

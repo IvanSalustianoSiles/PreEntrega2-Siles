@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 export const CartProduct = ({title, imageUrl, id, quantity, removeById, stock, settingQuantity, getProductPrice}) => {
     const {CartProductImg, detailButton, productCard} = style;
 
-    const {count, increment, decrement} = useCount(stock, 0, quantity);
+    const {count, increment, decrement} = useCount(stock, 1, quantity);
 
     console.log(quantity);
 
@@ -18,9 +18,9 @@ export const CartProduct = ({title, imageUrl, id, quantity, removeById, stock, s
         <h2>{title}</h2>
         <img src={imageUrl} alt={title} className={CartProductImg}/>
         <div>
-            <button onClick={decrement}>-</button>
+            <button disabled={count > 1 ? false : true} onClick={decrement}>-</button>
             <span>{count}</span>
-            <button onClick={increment}>+</button>
+            <button disabled={count < stock ? false : true} onClick={increment}>+</button>
         </div>
         <div>${getProductPrice(id)}</div>
         <Link to={`/product/${id}`}>

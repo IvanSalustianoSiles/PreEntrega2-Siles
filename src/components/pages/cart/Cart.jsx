@@ -7,23 +7,30 @@ export const Cart = () => {
   let total = getTotalPrice();
   return (
     <>
-      {
-        cart.map((product) => {
-          return (
-            <CartProduct 
-              {...product} 
-              removeById={removeById} 
-              settingQuantity={settingQuantity} 
-              getProductPrice={getProductPrice} 
-              key={product.id}
-            />
-        )})
-      }
-      <button onClick={clearCart}>Limpiar carrito</button>
-      <div>Total: ${total}</div>
-      <Link to="/checkout">
-        <button>Finalizar compra</button>
-      </Link>
+      { cart.length != 0 ? <>
+        {
+          cart.map((product) => {
+            return (
+              <CartProduct 
+                {...product} 
+                removeById={removeById} 
+                settingQuantity={settingQuantity} 
+                getProductPrice={getProductPrice} 
+                key={product.id}
+              />
+          )})
+        }
+        <button onClick={clearCart}>Limpiar carrito</button>
+        <div>Total: ${total}</div>
+        <Link to="/checkout">
+          <button>Finalizar compra</button>
+        </Link>
+      </> : <>
+          <div>Oops! Parece que tu carrito se encuentra vacío.</div>
+          <Link to="/">
+            <button>Agregar productos</button>
+          </Link>
+        </> }
     </>
   )
 }

@@ -5,6 +5,7 @@ import { Footer } from "./components/layout/Footer"
 import Layout from "./components/layout/Layout"
 import CartContextProvider from "./context/CartContext"
 
+
 const App = () => {
   return (
     <>
@@ -13,6 +14,7 @@ const App = () => {
         <Routes>
           <Route element={<Layout/>}>
             <Route path="/" element={<ItemListContainer/>}/>
+            <Route path="/:title" element={<ItemListContainer/>}/>
             <Route path="/category/:category" element={<ItemListContainer/>}/>
             <Route path="/cart" element={<Cart/>}/>
             <Route path="/product/:id" element={<ItemDetailContainer/>}/>

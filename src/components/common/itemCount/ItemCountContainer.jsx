@@ -1,16 +1,12 @@
 import { useState } from "react";
 import { ItemCount } from "./ItemCount"
+import { useCount } from "../../../hooks/useCount";
 
 
-export const ItemCountContainer = ({stock, initial = 1, onAdd}) => {
-    const [count, setCount] = useState(initial);
-    const increment = () => {
-      count < stock && setCount(count + 1);
-    }
-    const decrement = () => {
-      count > 0 && setCount(count - 1);
-    }
+export const ItemCountContainer = ({stock, varQuantity, onAdd}) => {
+  const {count, increment, decrement} = useCount(stock, 0, varQuantity);
+  const countObject = {decrement, increment, count, stock, varQuantity, onAdd};
   return (
-    <ItemCount decrement={decrement} increment={increment} count={count} stock={stock} onAdd={onAdd}/>
+    <ItemCount {...countObject}/>
   )
 }

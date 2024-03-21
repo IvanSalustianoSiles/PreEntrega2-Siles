@@ -1,7 +1,16 @@
 import style from "./Navbar.module.css"
 import { CartWidget } from "../../common/CartWidget"
 import { Link, Outlet } from "react-router-dom"
+import { CiSearch } from "react-icons/ci";
+import { SearchEngine } from "../../common/SearchEngine/SearchEngine";
+import { useState } from "react";
 export const Navbar = () => {
+  const showSearchEngine = () => {
+    let searchForm = document.getElementById("searchEngine");
+    let firstSearchButton = document.getElementById("firstSearchButton");
+    firstSearchButton.classList.add("_disabled_1rnhg_1");
+    searchForm.classList.remove("_disabled_1rnhg_1");
+  }
   return (
     <div>
       <Link to="/">
@@ -20,6 +29,10 @@ export const Navbar = () => {
         <Link to="/category/universitario">
           <button>Universitario</button>
         </Link>
+        <div>
+          <button id="firstSearchButton" onClick={showSearchEngine}><CiSearch color="red" size={22}/></button>
+          <SearchEngine/>
+        </div>
       </ul>
       <Link to="/cart"><CartWidget /></Link>
     </div>

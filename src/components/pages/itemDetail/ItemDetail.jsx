@@ -5,7 +5,7 @@ import { IoArrowUndoOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { ItemCountContainer } from "../../common/itemCount/ItemCountContainer";
 
-export const ItemDetail = ({imageUrl, title, price, description, stock, category, onAdd, error}) => {
+export const ItemDetail = ({imageUrl, title, price, description, stock, category, onAdd, error, varQuantity}) => {
   return (
     <>
       {error ? <div>{error}</div> : <div>
@@ -20,7 +20,7 @@ export const ItemDetail = ({imageUrl, title, price, description, stock, category
         <h3>${price}</h3>
         <h3>{description}</h3>
         <h3>{`(${stock} disponibles)`}</h3>
-        <ItemCountContainer stock={stock} onAdd={onAdd}/>
+        <ItemCountContainer stock={stock} varQuantity={varQuantity} onAdd={onAdd}/>
       </div>}
     </>
   )
