@@ -6,7 +6,6 @@ import { useParams } from "react-router-dom";
 import { PropagateLoader } from "react-spinners";
 import { useWordStandard } from "../../../hooks/useWordStandard";
 import style from "./ItemList.module.css"
-let noResults;
 export const ItemListContainer = () => {
   const [ products , setProducts ] = useState([]);
   const [ isLoading , setIsLoading ] = useState(true);
@@ -16,7 +15,6 @@ export const ItemListContainer = () => {
     setIsLoading(true);
     let productsCollection = collection(database, "products");
     let consultation = productsCollection;
-
     if (category) {
       let filteredProductsCollection = query(
         productsCollection, 
@@ -24,7 +22,6 @@ export const ItemListContainer = () => {
       );
       consultation = filteredProductsCollection;
     } 
-
     getDocs(consultation).then(resp => {
       let collectedProducts = resp.docs.map((document) => {
         if (title) {

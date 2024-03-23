@@ -8,8 +8,6 @@ export const CartProduct = ({title, imageUrl, id, quantity, removeById, stock, s
 
     const {count, increment, decrement} = useCount(stock, 1, quantity);
 
-    console.log(quantity);
-
     useEffect(() => {
         settingQuantity(id, count);
     }, [count]);

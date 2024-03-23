@@ -20,10 +20,12 @@ export const useWordStandard = (word) => {
         break;
         case "ú":
           char = "u";
+        case "c":
+          char = "s";
+        break;
       }
       return char;
     })
     let fixedWord = noAccentArray.join("");
-
     return {fixedWord};
 }

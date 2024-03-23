@@ -1,6 +1,6 @@
 import { Item } from "../../common/item/Item"
 import styles from "./ItemList.module.css"
-
+import { AgregarDocs } from "../../../AgregarDocs"
 export const ItemList = ({products}) => {
 
   return (
