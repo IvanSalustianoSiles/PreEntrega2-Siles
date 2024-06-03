@@ -9,7 +9,7 @@ const router = Router();
 const productsCollection = new ProductMDBManager(productsModel);
 
 router.get("/", async (req, res) => {
-  toSendObject = await productsCollection.getAllProducts(req.query.limit, req.query.page, req.query.query, req.query.sort, req.query.available);
+  toSendObject = await productsCollection.getAllProducts(req.query.limit, req.query.page, req.query.query, req.query.sort, req.query.available, "/api/products");
   res.send(toSendObject);
 });
 router.get("/:pid", async (req, res) => {

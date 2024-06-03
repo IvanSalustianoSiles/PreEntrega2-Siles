@@ -1,9 +1,15 @@
 import { Router } from "express";
 import { exampleProductManager } from "../app.js";
 import { uploader } from "../uploader.js";
+import { productsModel } from "../dao/models/products.model.js";
+import { cartsModel } from "../dao/models/carts.model.js";
+import ProductMDBManager from "../dao/productManager.mdb.js";
+import CartMDBManager from "../dao/cartManager.mdb.js";
 let toSendObject = {};
 
 const router = Router();
+const productsCollection = new ProductMDBManager(productsModel);
+const cartsCollection = new CartMDBManager(cartsModel);
 
 router.get("/welcome", (req, res) => {
   const user = {
@@ -12,10 +18,47 @@ router.get("/welcome", (req, res) => {
   }
   res.render('index', user);
 });
-router.get("/products", (req, res) => {
-
-    toSendObject = { payload: exampleProductManager.readFileAndSave() };
-    res.render('home', toSendObject);
+router.get("/products", async (req, res) => {
+  let paginated = await productsCollection.getAllProducts(req.query.limit, req.query.page, req.query.query, req.query.sort, req.query.available, "/products");
+  let toSendArray = paginated.payload.docs.map((product, index) => {
+    const {title,description,price,code,stock,category,status,thumbnail} = product;
+    const parsedId = JSON.stringify(paginated.payload.docs[index]._id);
+    return {
+      _id: parsedId.replace(/"/g, ""),
+      title: title,
+      description: description,
+      price: price,
+      code: code,
+      stock: stock,
+      category: category,
+      status: status,
+      thumbnail: thumbnail
+    };
+  })
+  let toSendObject = {...paginated};
+  !toSendObject.nextLink ? toSendObject['nextLink'] = "undefined" : toSendObject.nextLink;
+  !toSendObject.prevLink ? toSendObject['prevLink'] = "undefined" : toSendObject.prevLink;
+  Object.values(toSendObject.payload).forEach((payloadValue, index) => {
+    let payloadKey = Object.keys(toSendObject.payload)[index];
+    if (!payloadValue) {
+      toSendObject.payload[payloadKey] = "x";
+    }
+  })
+  res.render('home', {toSendArray: toSendArray, toSendObject: toSendObject});
+});
+router.post("/products", async (req, res) => {
+  const {add, ID} = req.body;
+  if (add) {
+    await cartsCollection.createCartMDB().then((res) => {
+      cartsCollection.addProductMDB(ID, res.ID);
+    });
+  }
+});
+router.get("/carts/:cid", async (req, res) => {
+  const {cid} = req.params;
+  let cartResponse = await cartsCollection.getCartById(cid);
+  const toSendObject = JSON.parse(JSON.stringify(cartResponse.products));
+  res.render('cart', {toSendObject: toSendObject});
 });
 router.get("/realtimeproducts", (req, res) => {
   toSendObject = exampleProductManager.readFileAndSave();

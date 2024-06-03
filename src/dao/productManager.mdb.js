@@ -3,7 +3,7 @@ class ProductMDBManager {
     this.products = [];
     this.model = model;
   }
-  getAllProducts = async (limit, page, query, sort, available) => {
+  getAllProducts = async (limit, page, query, sort, available, where) => {
     let toSendObject = {};
     let prevUrl;
     let nextUrl;
@@ -19,11 +19,11 @@ class ProductMDBManager {
     }
     this.products = await this.model.paginate(...paginateArray);
     if (query) {
-      this.products.hasPrevPage ? prevUrl = `/api/products?query=${query}&page=${this.products.prevPage}&limit=${limit}&sort=${sort}&available=${available}` : null;
-      this.products.hasNextPage ? nextUrl = `/api/products?query=${query}&page=${this.products.nextPage}&limit=${limit}&sort=${sort}&available=${available}` : null;
+      this.products.hasPrevPage ? prevUrl = `${where}?query=${query}&page=${this.products.prevPage}&limit=${limit}&sort=${sort}&available=${available}` : null;
+      this.products.hasNextPage ? nextUrl = `${where}?query=${query}&page=${this.products.nextPage}&limit=${limit}&sort=${sort}&available=${available}` : null;
     } else {
-      this.products.hasPrevPage ? prevUrl = `/api/products?page=${this.products.prevPage}&limit=${limit}&sort=${sort}&available=${available}` : null;
-      this.products.hasNextPage ? nextUrl = `/api/products?page=${this.products.nextPage}&limit=${limit}&sort=${sort}&available=${available}` : null;
+      this.products.hasPrevPage ? prevUrl = `${where}?page=${this.products.prevPage}&limit=${limit}&sort=${sort}&available=${available}` : null;
+      this.products.hasNextPage ? nextUrl = `${where}?page=${this.products.nextPage}&limit=${limit}&sort=${sort}&available=${available}` : null;
     }
     return toSendObject = {
       status: "success",

@@ -11,7 +11,8 @@ class CartMDBManager {
     createCartMDB = async () => {
         try {
             let toSendObject = await this.model.create({products: []});
-            return "Carrito creado en la base de datos.";
+            let toSendID = JSON.parse(JSON.stringify(toSendObject['_id']));
+            return {msg: "Carrito creado en la base de datos.", ID: toSendID};
         } catch {
             return "Error al crear el carrito. Por favor, inténtalo de nuevo.";
         }
@@ -27,7 +28,7 @@ class CartMDBManager {
               let myProduct = myCart["products"].find(product => product._id == pid);
               if (myProduct) {
                 myProduct["quantity"] = myProduct["quantity"] + newProduct.quantity;
-                const updated = await this.model.findOneAndUpdate({_id: cid, 'products._id': pid }, {$set: {'products.$.quantity': myProduct.quantity}});
+                await this.model.findOneAndUpdate({_id: cid, 'products._id': pid }, {$set: {'products.$.quantity': myProduct.quantity}});
                 return `Ahora hay ${myProduct["quantity"]} productos de ID ${pid} en el carrito de ID ${cid}.`;
               } else {
                 await this.model.findByIdAndUpdate({_id: cid}, {$set: {products: [...myCart.products, newProduct]}});
@@ -62,11 +63,7 @@ class CartMDBManager {
     getCartById = async (cid) => {
         try {
             let cartById = await this.model.findById(cid);
-            let toSendObject;
-            return toSendObject = {
-                status: 1,
-                payload: cartById,
-            };
+            return cartById;
         } catch (error) {
             return "Lo sentimos, ha ocurrido un error enviando la información que intentó capturar."
         }
@@ -112,7 +109,7 @@ class CartMDBManager {
             return `El producto que intentabas ingresar no contiene las propiedades adecuadas.`;
         };
     };
-    deleteAllTheFuckingProducts = async (cid) => {
+    deleteAllProducts = async (cid) => {
         try {
             await this.model.findOneAndUpdate({_id: cid}, {$set: {products: []}});
             
@@ -120,6 +117,6 @@ class CartMDBManager {
         } catch {
             return `Error al intentar limpiar el carrito de ID ${cid}`;
         }
-    }
+    };
 };
 export default CartMDBManager;

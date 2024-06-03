@@ -48,7 +48,7 @@ router.put("/:cid/product/:pid", async (req, res) => {
 });
 router.delete("/:cid", async (req, res) => {
   const {cid} = req.params;
-  toSendObject = await cartsCollection.deleteAllTheFuckingProducts(cid);
+  toSendObject = await cartsCollection.deleteAllProducts(cid);
   res.status(200).send(toSendObject);
 });
 
