@@ -4,8 +4,15 @@
     <div>
         {{#each toSendObject}}
             <div>
+                <h2>{{title}}</h2>
+                <img src={{thumbnail}} alt={{title}}>
+                <h3>${{price}}</h3>
+                <h4>Categoría: {{category}}</h4>
+                <p>{{description}}</p>
+                <h4>Cantidad: {{quantity}}, máximo {{stock}}</h4>
+            </div>
+            <div>
                 <h2>ID del producto: {{_id}}</h2>
-                <h3>Cantidad: {{quantity}}</h3>
             </div>
             <hr>      
         {{/each}}

@@ -56,8 +56,14 @@ router.post("/products", async (req, res) => {
 });
 router.get("/carts/:cid", async (req, res) => {
   const {cid} = req.params;
+  let completeCartResponse = await cartsModel.find({_id: cid}).lean()
   let cartResponse = await cartsCollection.getCartById(cid);
   const toSendObject = JSON.parse(JSON.stringify(cartResponse.products));
+  for (let i = 0; i < Object.values(toSendObject).length; i++) {
+    let myProducts = JSON.parse(JSON.stringify({...completeCartResponse[i]})).products[0]._id;
+    toSendObject[i] = {...toSendObject[i], ...myProducts}
+  }
+  console.log(toSendObject);
   res.render('cart', {toSendObject: toSendObject});
 });
 router.get("/realtimeproducts", (req, res) => {
