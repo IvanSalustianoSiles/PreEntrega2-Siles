@@ -60,10 +60,9 @@ router.get("/carts/:cid", async (req, res) => {
   let cartResponse = await cartsCollection.getCartById(cid);
   const toSendObject = JSON.parse(JSON.stringify(cartResponse.products));
   for (let i = 0; i < Object.values(toSendObject).length; i++) {
-    let myProducts = JSON.parse(JSON.stringify({...completeCartResponse[i]})).products[0]._id;
+    let myProducts = JSON.parse(JSON.stringify({...completeCartResponse[0]})).products[i]._id;
     toSendObject[i] = {...toSendObject[i], ...myProducts}
   }
-  console.log(toSendObject);
   res.render('cart', {toSendObject: toSendObject});
 });
 router.get("/realtimeproducts", (req, res) => {

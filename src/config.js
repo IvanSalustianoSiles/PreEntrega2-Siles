@@ -9,5 +9,3 @@ const config = {
 
 export default config;
 
-
-// {product: {_id: objectId("66590300d57c007e787609ba"), quantity: 3}}
