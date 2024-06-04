@@ -57,9 +57,7 @@ class ProductManager {
     }
     deleteProductById(id) {
       this.readFileAndSave();
-      let toDeleteProduct = this.productsArray.find(
-        (product) => product._id == id
-      );
+      let toDeleteProduct = this.productsArray.find(product => product._id == id);
       if (toDeleteProduct) {
         const forDeleteIndex = this.productsArray.indexOf(toDeleteProduct);
         this.productsArray.splice(forDeleteIndex, 1);
