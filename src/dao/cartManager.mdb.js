@@ -1,6 +1,3 @@
-import { cartsModel } from "./models/carts.model.js";
-import { productsModel } from "./models/products.model.js";
-
 class CartMDBManager {
     constructor(model) {
         this.carts = [];
@@ -119,4 +116,5 @@ class CartMDBManager {
         }
     };
 };
+
 export default CartMDBManager;

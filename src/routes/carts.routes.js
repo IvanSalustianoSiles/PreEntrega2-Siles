@@ -1,6 +1,6 @@
-import { exampleCartManager } from "../app.js";
 import { Router } from "express";
 import { cartsModel } from "../dao/models/carts.model.js";
+import CartManagerFS from "../dao/managers/cartManager.fs.js";
 import CartMDBManager from "../dao/cartManager.mdb.js";
 let toSendObject = {};
 const router = Router();
@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
   }
 });
 router.post("/", async (req, res) => {
-  exampleCartManager.createCart();
+  CartManagerFS.createCart();
   toSendObject = await cartsCollection.createCartMDB();
   res.status(200).send(toSendObject);
 });
@@ -26,7 +26,7 @@ router.get("/:cid", async (req, res) => {
 });
 router.post("/:cid/product/:pid", async (req, res) => {
   const {pid, cid} = req.params;
-  exampleCartManager.addProduct(pid, cid);
+  CartManagerFS.addProduct(pid, cid);
   toSendObject = await cartsCollection.addProductMDB(pid, cid);
   res.status(200).send(toSendObject);
 });
