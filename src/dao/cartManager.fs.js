@@ -1,6 +1,6 @@
 import fs from "fs";
-import myCarts from "../../../carts-mock.js";
-import myProducts from "../../../products-mock.js";
+import myCarts from "../../carts-mock.js"
+import myProducts from "../../products-mock.js";
 
 // Clase para controlar los métodos referentes a los carritos.
 class CartManager {
@@ -82,7 +82,25 @@ class CartManager {
 const [cart1, cart2, cart3, cart4] = myCarts;
 const [product1, product2, product3, productCambiado] = myProducts;
 
+// Métodos a utilizar:
+
+// Para productos:
+// exampleProductManager.addProduct();
+// exampleProductManager.getProducts();
+// exampleProductManager.getProductById();
+// exampleProductManager.deleteProductById();
+// exampleProductManager.updateProduct();
+// exampleProductManager.readFileAndSave();
+
+// Para carritos:
+// exampleCartManager.createCart();
+// exampleCartManager.getProdsOfCartById();
+// exampleCartManager.addProduct();
+// exampleCartManager.updateFile();
+// exampleCartManager.readFileAndSave();
+
 // CartManager de ejemplo para probar el algoritmo.
+
 let CartManagerFS = new CartManager; 
 
 export default CartManagerFS;

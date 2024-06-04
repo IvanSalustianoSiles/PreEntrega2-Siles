@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { cartsModel } from "../dao/models/carts.model.js";
-import CartManagerFS from "../dao/managers/cartManager.fs.js";
+import CartManagerFS from "../dao/cartManager.fs.js";
 import CartMDBManager from "../dao/cartManager.mdb.js";
 let toSendObject = {};
 const router = Router();

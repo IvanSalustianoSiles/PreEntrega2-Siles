@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { uploader } from "../uploader.js";
 import { productsModel } from "../dao/models/products.model.js";
-import ProductManagerFS from "../dao/managers/productManager.fs.js";
+import ProductManagerFS from "../dao/productManager.fs.js";
 import ProductMDBManager from "../dao/productManager.mdb.js";
 
 let toSendObject = {};  

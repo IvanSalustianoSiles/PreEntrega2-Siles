@@ -1,5 +1,5 @@
 import fs from "fs";
-import myProducts from "../../../products-mock.js";
+import myProducts from "../../products-mock.js";
 
 // Clase para controlar los métodos referentes a los productos.
 class ProductManager {
@@ -107,7 +107,16 @@ class ProductManager {
 // Productos de ejemplo para agregar y probar el algoritmo.
 const [product1, product2, product3, productCambiado] = myProducts;
 
-// ProductManager de ejemplo para probar el algoritmo.
+// Métodos a utilizar:
+
+// Para productos:
+// exampleProductManager.addProduct();
+// exampleProductManager.getProducts();
+// exampleProductManager.getProductById();
+// exampleProductManager.deleteProductById();
+// exampleProductManager.updateProduct();
+// exampleProductManager.readFileAndSave();
+
 let ProductManagerFS = new ProductManager; 
 
 export default ProductManagerFS;

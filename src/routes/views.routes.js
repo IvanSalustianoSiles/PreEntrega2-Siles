@@ -1,5 +1,5 @@
 import { Router } from "express";
-import ProductManagerFS from "../dao/managers/productManager.fs.js";
+import ProductManagerFS from "../dao/productManager.fs.js";
 import { uploader } from "../uploader.js";
 import { productsModel } from "../dao/models/products.model.js";
 import { cartsModel } from "../dao/models/carts.model.js";
