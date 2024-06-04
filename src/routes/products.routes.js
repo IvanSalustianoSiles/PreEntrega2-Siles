@@ -18,7 +18,9 @@ router.get("/:pid", async (req, res) => {
 });
 router.post("/", uploader.single("thumbnail"), async (req, res) => {
   toSendObject = await productsCollection.addProducts({...req.body, thumbnail: req.file.filename, status: true});
-  ProductManagerFS.addProduct({...req.body, thumbnail: req.file.filename, status: true});
+  let addedProduct = toSendObject.find(product => product.title = req.body.title);
+  let pid = JSON.parse(JSON.stringify(addedProduct._id)).replace(/"/g, "");
+  ProductManagerFS.addProduct({...req.body, thumbnail: req.file.filename, status: true, mdbid: pid});
   res.send(toSendObject);
 });
 router.put("/:pid", async (req, res) => {

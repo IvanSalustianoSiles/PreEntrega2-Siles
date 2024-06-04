@@ -20,7 +20,7 @@ class CartManager {
 
       this.cartsArray.push(newCart);
       this.updateFile(this.cartsArray);
-      console.log(`El producto de ID "${newCart._id}" fue agregado.`);
+      console.log(`El carrito de ID "${newCart._id}" fue agregado.`);
   
       return newCart;
     }
