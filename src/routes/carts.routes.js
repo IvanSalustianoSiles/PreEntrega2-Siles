@@ -33,16 +33,19 @@ router.post("/:cid/product/:pid", async (req, res) => {
 router.delete("/:cid/product/:pid", async (req, res) => {
   const {pid, cid} = req.params;
   toSendObject = await cartsCollection.deleteProductMDB(pid, cid);
+  console.log(toSendObject);
   res.status(200).send(toSendObject);
 });
 router.put("/:cid", async (req, res) => {
+  // Formato del body: [{"quantity": Number, "_id:" String},...]
   const {cid} = req.params;
   toSendObject = await cartsCollection.updateCartById(cid, req.body);
+  console.log(toSendObject);
   res.status(200).send(toSendObject);
 });
 router.put("/:cid/product/:pid", async (req, res) => {
   const {pid, cid} = req.params;
-
+// Formato del body: {"quantity": Number}
   toSendObject = await cartsCollection.updateQuantity(pid, cid, req.body);
   res.status(200).send(toSendObject);
 });
