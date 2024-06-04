@@ -47,7 +47,7 @@ class ProductManager {
     getProductById(id) {
       this.getting = true;
       this.readFileAndSave();
-      let gottenProduct = this.productsArray.find((product) => product.id == id);
+      let gottenProduct = this.productsArray.find((product) => product._id == id);
       if (gottenProduct) {
         return gottenProduct;
       } else {
@@ -58,7 +58,7 @@ class ProductManager {
     deleteProductById(id) {
       this.readFileAndSave();
       let toDeleteProduct = this.productsArray.find(
-        (product) => product.id == id
+        (product) => product._id == id
       );
       if (toDeleteProduct) {
         const forDeleteIndex = this.productsArray.indexOf(toDeleteProduct);
@@ -72,7 +72,7 @@ class ProductManager {
     updateProduct(id, latestProduct = {}) {
       this.readFileAndSave();
       let toUpdateProduct = this.productsArray.find(
-        (product) => product.id == id
+        (product) => product._id == id
       );
       if (toUpdateProduct) {
         Object.values(toUpdateProduct).forEach((value, i) => {
@@ -84,7 +84,7 @@ class ProductManager {
         let indexToUpdate = this.productsArray.indexOf(toUpdateProduct);
         this.productsArray.splice(indexToUpdate, 1, latestProduct);
         this.updateFile(this.productsArray);
-        console.log(`Producto de ID "${toUpdateProduct.id}" actualizado.`);
+        console.log(`Producto de ID "${toUpdateProduct._id}" actualizado.`);
       } else {
         console.log(`No se encontró el producto que coincida con la ID "${id}".`);
       }

@@ -6,7 +6,6 @@ import myProducts from "../../../products-mock.js";
 class CartManager {
     constructor() {
       this.cartsArray = [];
-      this.id = 0;
       this.path = `./cart.json`;
       this.getting = false;
     }
@@ -27,7 +26,7 @@ class CartManager {
     getProdsOfCartById(cid) {
       this.getting = true;
       this.readFileAndSave();
-      let gottenCart = this.cartsArray.find((cart) => cart.id == cid);
+      let gottenCart = this.cartsArray.find((cart) => cart._id == cid);
       if (gottenCart) {
         return gottenCart["products"];
       } else {
@@ -42,9 +41,9 @@ class CartManager {
         quantity: 1
       }
       if (!Object.values(newProduct).includes(undefined)) {
-        let myCart = this.cartsArray.find(cart => cart.id == cid);
+        let myCart = this.cartsArray.find(cart => cart._id == cid);
         if (myCart) {
-          let myProduct = myCart["products"].find(product => product.id == id);
+          let myProduct = myCart["products"].find(product => product._id == id);
           if (myProduct) {
             let indexOfProd = myCart["products"].indexOf(myProduct);
             newProduct["quantity"] = myProduct["quantity"] + newProduct.quantity;
