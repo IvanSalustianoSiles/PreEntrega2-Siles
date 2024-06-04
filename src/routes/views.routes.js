@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { exampleProductManager } from "../app.js";
+import ProductManagerFS from "../dao/managers/productManager.fs.js";
 import { uploader } from "../uploader.js";
 import { productsModel } from "../dao/models/products.model.js";
 import { cartsModel } from "../dao/models/carts.model.js";
@@ -66,7 +66,7 @@ router.get("/carts/:cid", async (req, res) => {
   res.render('cart', {toSendObject: toSendObject});
 });
 router.get("/realtimeproducts", (req, res) => {
-  toSendObject = exampleProductManager.readFileAndSave();
+  toSendObject = ProductManagerFS.readFileAndSave();
   res.render('realTimeProducts', {toSendObject: toSendObject});
 });
 router.post("/realtimeproducts", uploader.single("archivo"), (req, res) => {
@@ -75,11 +75,11 @@ router.post("/realtimeproducts", uploader.single("archivo"), (req, res) => {
   const {id} = newProduct;
   if (productAction == "add") {
     let toAddProduct = {...newProduct, thumbnail: req.file.filename, status: true};
-    exampleProductManager.addProduct(toAddProduct);
-    let toAddId = exampleProductManager.readFileAndSave()[exampleProductManager.readFileAndSave().length-1].id
+    ProductManagerFS.addProduct(toAddProduct);
+    let toAddId = ProductManagerFS.readFileAndSave()[ProductManagerFS.readFileAndSave().length-1].id
     socketServer.emit("addConfirmed", {msg: "Producto agregado.", toAddId});
   } else if (productAction == "delete") {
-    exampleProductManager.deleteProductById(+id);
+    ProductManagerFS.deleteProductById(+id);
     
     socketServer.emit("deleteConfirmed", {msg: `Producto de ID ${id} eliminado.`, pid: id});
   }

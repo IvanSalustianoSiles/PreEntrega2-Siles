@@ -5,11 +5,10 @@ import myProducts from "../../../products-mock.js";
 class ProductManager {
     constructor() {
       this.productsArray = [];
-      this.id = 0;
       this.path = `./product.json`;
       this.getting = false;
     }
-    addProduct({ title, description, price, code, stock, category, status, thumbnail }) {
+    addProduct({ title, description, price, code, stock, category, status, thumbnail, mdbid}) {
       this.readFileAndSave();
       let newProduct = {
         title: title,
@@ -20,6 +19,7 @@ class ProductManager {
         category: category,
         status: status,
         thumbnail: thumbnail,
+        _id: mdbid
       };
   
       let codeExists = this.productsArray.some(
@@ -29,22 +29,9 @@ class ProductManager {
       if (codeExists == false && !Object.keys(newProduct).includes(undefined)) {
         // Validamos que no se repita el code y que los campos sean obligatorios.
         
-        if (!id) {
-          const idsArray = this.productsArray.map((product) => {
-            return product.id;
-          });
-          idsArray.sort((a, b) => a - b); // En caso de que se desordene el array, si sumamos de uno en uno podemos encontrarnos con IDs repetidos, así que, para evitar problemas, lo ordenamos
-          if (idsArray != "") {
-            // de menor a mayor y a la última posición del array le sumamos uno, para siempre tener un número mayor en la siguiente ID, no importa en qué orden se borre o agregue productos.
-            this.id = idsArray[idsArray.length - 1] + 1;
-          } else {
-            this.id = this.id + 1;
-          }
-          newProduct = { ...newProduct, id: this.id };
-        }
         this.productsArray.push(newProduct);
         this.updateFile(this.productsArray);
-        console.log(`El producto de ID "${newProduct.id}" fue agregado.`);
+        console.log(`El producto de ID "${newProduct._id}" fue agregado.`);
       }
     }
     getProducts() {

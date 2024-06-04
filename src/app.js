@@ -7,8 +7,6 @@ import cartRoutes from "./routes/carts.routes.js";
 import handlebars from "express-handlebars";
 import viewRoutes from "./routes/views.routes.js";
 import userRoutes from "./routes/users.routes.js";
-import { ProductManager } from "./dao/managers/productManager.fs.js";
-import { CartManager } from "./dao/managers/cartManager.fs.js";
 import { initSocket } from "./sockets.js";
 
 

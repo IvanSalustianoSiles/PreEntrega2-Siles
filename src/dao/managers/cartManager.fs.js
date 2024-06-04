@@ -10,27 +10,17 @@ class CartManager {
       this.path = `./cart.json`;
       this.getting = false;
     }
-    createCart() {
+    createCart(mdbid) {
       this.readFileAndSave();
   
       let newCart = {
-        id: "",
+        _id: mdbid,
         products: [],
       };
-      const CartIdsArray = this.cartsArray.map((cart) => {
-        return cart.id;
-      });
-      CartIdsArray.sort((a, b) => a - b); // En caso de que se desordene el array, si sumamos de uno en uno podemos encontrarnos con IDs repetidos, así que, para evitar problemas, lo ordenamos
-      if (CartIdsArray != "") {
-        // de menor a mayor y a la última posición del array le sumamos uno, para siempre tener un número mayor en la siguiente ID, no importa en qué orden se borre o agregue productos.
-        this.id = CartIdsArray[CartIdsArray.length - 1] + 1;
-      } else {
-        this.id = this.id + 1;
-      }
-      newCart = { ...newCart, id: this.id };
+
       this.cartsArray.push(newCart);
       this.updateFile(this.cartsArray);
-      console.log(`El producto de ID "${newCart.id}" fue agregado.`);
+      console.log(`El producto de ID "${newCart._id}" fue agregado.`);
   
       return newCart;
     }
@@ -41,7 +31,7 @@ class CartManager {
       if (gottenCart) {
         return gottenCart["products"];
       } else {
-        console.log(`No se encontró el producto que coincida con la id "${cid}".`);
+        console.log(`No se encontró el carrito que coincida con la id "${cid}".`);
       }
       this.getting = false;
     }

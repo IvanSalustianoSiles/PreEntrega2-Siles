@@ -15,8 +15,9 @@ router.get("/", async (req, res) => {
   }
 });
 router.post("/", async (req, res) => {
-  CartManagerFS.createCart();
   toSendObject = await cartsCollection.createCartMDB();
+  console.log(toSendObject);
+  CartManagerFS.createCart(mdbid);
   res.status(200).send(toSendObject);
 });
 router.get("/:cid", async (req, res) => {
